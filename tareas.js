@@ -1,8 +1,12 @@
 const fs = require('fs');
+const chalk = require('chalk');
 
 function leerArchivo() {
-    const tareasJson = fs.readFileSync('./archivo.json', 'utf-8');
-    return JSON.parse(tareasJson);
+    if (fs.existsSync('./archivo.json')) {
+        const tareasJson = fs.readFileSync('./archivo.json', 'utf-8');
+        return JSON.parse(tareasJson);
+    }
+    return [];
 }
 
 
@@ -16,10 +20,17 @@ function escribirArchivoJSON(tareas) {
 
 
 
-function todas() {
+function listar() {
     let tareas = leerArchivo();
     tareas.forEach(element => {
-        console.log(element.titulo + '|' + element.estado)
+        if (element.estado == "terminado") {
+            console.log(chalk.black.bgGreenBright(element.titulo + '|' + element.estado));
+        } else if (element.estado == "en proceso") {
+            console.log(chalk.black.bgYellowBright(element.titulo + '|' + element.estado));
+        } else {
+            console.log(chalk.black.bgRedBright(element.titulo + '|' + element.estado));
+        }
+
     });
 }
 
@@ -28,7 +39,23 @@ function pendientes() {
     let tareas = leerArchivo();
     let tareasfiltradas = tareas.filter(elem => elem.estado == 'pendiente');
     tareasfiltradas.forEach(element => {
-        console.log(element.titulo + '|' + element.estado)
+        console.log(chalk.bgRedBright.black(element.titulo + '|' + element.estado));
+    });
+}
+
+function terminados() {
+    let tareas = leerArchivo();
+    let tareasfiltradas = tareas.filter(elem => elem.estado == 'terminado');
+    tareasfiltradas.forEach(element => {
+        console.log(chalk.bgGreenBright.black(element.titulo + '|' + element.estado));
+    });
+}
+
+function proceso() {
+    let tareas = leerArchivo();
+    let tareasfiltradas = tareas.filter(elem => elem.estado == 'en proceso');
+    tareasfiltradas.forEach(element => {
+        console.log(chalk.bgYellowBright.black(element.titulo + '|' + element.estado));
     });
 }
 
@@ -57,13 +84,13 @@ function crear(titulo = '', descripcion = '', estado = 'pendiente') {
         let tareaNueva = {
             titulo: titulo,
             descripcion: descripcion,
-            estado: 'pendiente'
+            estado: estado
         }
         tareas.push(tareaNueva);
         escribirArchivoJSON(tareas);
-        console.log('¡Tarea creada con éxito!');
+        console.log(chalk.bgGreenBright.black('¡Tarea creada con éxito!'));
     } else {
-        console.log('Debes ingresar un título y debe tener al menos 5 caracteres');
+        console.log(chalk.bgRedBright.black('Debes ingresar un título y debe tener al menos 5 caracteres'));
     }
 }
 
@@ -76,15 +103,56 @@ function borrar(titulo) {
     )
     escribirArchivoJSON(tareasActualizadas);
     if (tareas.length !== tareasActualizadas.length) {
-        console.log('Tarea borrada')
+        console.log(chalk.bgRedBright.black('Tarea borrada'));
     } else {
-        console.log('no se encontro la tarea')
+        console.log(chalk.bgRedBright.black('No se encontro la tarea'));
+    }
+}
+
+function completar(title) {
+    let tareas = leerArchivo();
+    let indice = tareas.findIndex(elem => elem.titulo == title);
+    if (indice != -1) {
+        tareas[indice].estado = 'terminado';
+        escribirArchivoJSON(tareas);
+        console.log(chalk.bgGreenBright.black('Tarea completada!'));
+    } else {
+        console.log(chalk.bgRedBright.black('No existe la tarea a completar'));
+    }
+}
+
+function iniciar(title) {
+    let tareas = leerArchivo();
+    let indice = tareas.findIndex(elem => elem.titulo == title);
+    if (indice != -1) {
+        tareas[indice].estado = 'en proceso';
+        escribirArchivoJSON(tareas);
+        console.log(chalk.bgYellowBright.black('Tarea en proceso!'));
+    } else {
+        console.log(chalk.bgRedBright.black('No existe la tarea a inicializar'));
+    }
+}
+
+function detalle(title) {
+    let tareas = leerArchivo();
+    let find = tareas.find(element => element.titulo == title);
+    if (find == undefined) {
+        console.log(chalk.bgYellowBright.black('La tarea no existe'));
+    } else {
+        console.log(chalk.bgBlueBright.black('Titulo:', find.titulo));
+        console.log(chalk.bgBlueBright.black('Descripcion:', find.descripcion));
+        console.log(chalk.bgBlueBright.black('Estado:', find.estado));
     }
 }
 
 module.exports = {
-    todas,
+    listar,
     pendientes,
     crear,
-    borrar
+    borrar,
+    terminados,
+    proceso,
+    completar,
+    iniciar,
+    detalle
 }

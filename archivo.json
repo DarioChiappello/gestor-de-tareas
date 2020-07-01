@@ -1,26 +1,7 @@
-[{
-        "titulo": "titulo 1",
-        "descripcion": "descripcion 1",
-        "estado": "realizado"
-    },
-    {
-        "titulo": "titulo 2",
-        "descripcion": "descrip 2",
-        "estado": "en proceso"
-    },
-    {
-        "titulo": "titulo 3",
-        "descripcion": "descrip 3",
-        "estado": "pendiente"
-    },
-    {
-        "titulo": "titulo 4",
-        "descripcion": "decrip 4",
-        "estado": "pendiente"
-    },
-    {
-        "titulo": "titulito",
-        "descripcion": "dew",
-        "estado": "pendiente"
-    }
+[
+ {
+  "titulo": "Tarea 1",
+  "descripcion": "Subir repositorio",
+  "estado": "pendiente"
+ }
 ]

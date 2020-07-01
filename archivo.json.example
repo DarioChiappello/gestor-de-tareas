@@ -1,0 +1,27 @@
+[
+ {
+  "titulo": "titulo 1",
+  "descripcion": "descripcion 1",
+  "estado": "terminado"
+ },
+ {
+  "titulo": "titulo 2",
+  "descripcion": "descrip 2",
+  "estado": "terminado"
+ },
+ {
+  "titulo": "titulo 3",
+  "descripcion": "descrip 3",
+  "estado": "en proceso"
+ },
+ {
+  "titulo": "titulo 4",
+  "descripcion": "decrip 4",
+  "estado": "pendiente"
+ },
+ {
+  "titulo": "Nueva tarea ",
+  "descripcion": "Breve descripcion",
+  "estado": "pendiente"
+ }
+]
