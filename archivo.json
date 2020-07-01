@@ -1,0 +1,27 @@
+[
+ {
+  "titulo": "titulo 1",
+  "descripcion": "descripcion 1",
+  "estado": "realizado"
+ },
+ {
+  "titulo": "titulo 2",
+  "descripcion": "descrip 2",
+  "estado": "fallido"
+ },
+ {
+  "titulo": "titulo 3",
+  "descripcion": "descrip 3",
+  "estado": "pendiente"
+ },
+ {
+  "titulo": "titulo 4",
+  "descripcion": "decrip 4",
+  "estado": "pendiente"
+ },
+ {
+  "titulo": "titulito",
+  "descripcion": "dew",
+  "estado": "pendiente"
+ }
+]
