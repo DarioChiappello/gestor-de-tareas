@@ -32,6 +32,7 @@ function pendientes() {
     });
 }
 
+/*
 function crear(titulo, descripcion = '', estado = 'pendiente') {
     if (titulo) {
         let tareas = leerArchivo();
@@ -49,12 +50,28 @@ function crear(titulo, descripcion = '', estado = 'pendiente') {
     }
 
 }
+*/
+function crear(titulo = '', descripcion = '', estado = 'pendiente') {
+    let tareas = leerArchivo();
+    if (titulo.length > 5) {
+        let tareaNueva = {
+            titulo: titulo,
+            descripcion: descripcion,
+            estado: 'pendiente'
+        }
+        tareas.push(tareaNueva);
+        escribirArchivoJSON(tareas);
+        console.log('¡Tarea creada con éxito!');
+    } else {
+        console.log('Debes ingresar un título y debe tener al menos 5 caracteres');
+    }
+}
 
-function borrar() {
+function borrar(titulo) {
     let tareas = leerArchivo();
     let tareasActualizadas = tareas.filter(
         function(tarea) {
-            return parametros[0] !== tarea.titulo;
+            return titulo !== tarea.titulo;
         }
     )
     escribirArchivoJSON(tareasActualizadas);
